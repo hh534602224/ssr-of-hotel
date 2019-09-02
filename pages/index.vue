@@ -45,6 +45,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.login{
+  background-image: url('../static/bar1.jpg');
+  height: 720px;
+  width: 100%;
+
+}
 .lv{
   color: red
 }
