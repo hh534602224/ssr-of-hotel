@@ -79,7 +79,6 @@ export default {
                     color: #ff8c28;
                 }
                
-                
             }
         }
     }
