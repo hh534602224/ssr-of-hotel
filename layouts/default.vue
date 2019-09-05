@@ -8,11 +8,15 @@
 <script>
 import Footer from '../components/footer'
 import Header from '../components/header'
+import store from '../store/store'
+
+
 export default {
   components:{
     Footer,
-    Header
-  }
+    Header,
+    store
+  },
   
 }
 </script>
@@ -40,9 +44,7 @@ a{
   text-decoration:none;
   color:inherit;
 }
-a:hover{
 
-}
 em,i{
   font-style: normal;
 }

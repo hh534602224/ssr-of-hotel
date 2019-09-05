@@ -11,17 +11,31 @@
       <nuxt-link to="/air">国内机票</nuxt-link>
 </el-row>
 <div class="login">
-    <nuxt-link to="/user">登录</nuxt-link>
+    <nuxt-link to="/user" v-show="!islogin">登录</nuxt-link>
+    <el-dropdown v-show="islogin" class="user" >
+     <img src="../static/avatar.jpg" alt="" class="userimg">
+  <span class="el-dropdown-link" >
+    {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+  </span>
+  <el-dropdown-menu slot="dropdown">
+    <el-dropdown-item>个人中心</el-dropdown-item>
+    <el-dropdown-item>退出</el-dropdown-item>
+  </el-dropdown-menu>
+</el-dropdown>
     </div>
 </el-row>
 </header>
 </template>
 <script>
 export default {
-
+    data(){
+        return{
+            username:'哈哈哈啊哈',
+            islogin:0,
+        }
+    }
 }
 </script>
-
 <style lang="less" scoped>
 .header{
     height: 60px;
@@ -56,9 +70,20 @@ export default {
         }
     }
     }
+}
 
-    
+
+.userimg{
+    width: 44px;
+    height: 44px;
+    vertical-align: middle;
+    border-radius: 50%;
+    box-sizing:border-box;//内减模式
+    &:hover{
+         border: 3px #409eff solid;
+     }
     
 }
+
 
 </style>

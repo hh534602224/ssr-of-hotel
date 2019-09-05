@@ -69,9 +69,18 @@ export default {
                     url: "/accounts/login",
                     method: "POST",
                     data: this.form
-                }).then(res => {
-                    console.log(res.data);
+                }).then((res)=>{
+                    console.log(this);
+                    this.$message.success('登陆成功')
+                    // this.$router.push({path:'/'})
+                    window.localStorage.setItem('nickname',res.data)
+                    console.log(res);
+                }).catch((err)=>{
+                    console.log(err);
+                    //  this.$message.error('用户名或者密码无效');
                 })
+            }else{
+                 this.$message.error('请输入正确的信息');
             }
         })
     }
