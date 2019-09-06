@@ -44,9 +44,7 @@
 <script>
 import searchtab from '../../components/air/search'
 export default {
-  data(){
-
-  },
+  
   components:{
   searchtab
   }
