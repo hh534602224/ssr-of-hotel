@@ -87,6 +87,7 @@ export default {
     methods: {
         // 获取建议城市列表
        async getcitylist(qs,cb,data){
+         // 建议城市列表
            this.advisecity=[]
             if(data===''){
                return
@@ -95,6 +96,7 @@ export default {
                 url:'/airs/city',
                 params:{name:data}
             })
+            console.log(citydata);
             // 添加一个value属性进去返回的数据，并赋值给建议城市
             citydata.data.data.map((item,index)=>{
               this.advisecity.push(
@@ -105,7 +107,7 @@ export default {
            }
         },
         // 设置出发城市默认项
-        setstartcitydefault(){
+       setstartcitydefault(){
          this.handleDepartSelect(this.advisecity[0])
         },
         // 设置到达城市默认项
@@ -118,7 +120,7 @@ export default {
         },
         // 选中出发城市
         handleDepartSelect(hh){
-             this.search.departCity=hh.name//出发城市
+           this.startcity= this.search.departCity=hh.name//出发城市
              this.search.departCode=hh.sort//出发城市代码
         },
         // 到达城市
@@ -127,9 +129,9 @@ export default {
         },
         // 选中到达城市
         handleSelect(hh){
-             this.search.destCity=hh.name//到达城市
+          // this.destCity=
+            this.endcity= this.search.destCity=hh.name//到达城市
              this.search.destCode=hh.sort//到达城市代码
-             
         },
         // 出发时间
         handleDate(hh){
@@ -141,12 +143,9 @@ export default {
         },
         // 搜索城市
        async handleSubmit(){
-        let airlist =await this.$axios({
-            url:'/airs',
-            params:this.search
-          })
-        // 发送数据
-          console.log(airlist)
+        
+        // 跳转路由，传参
+          this.$router.push({ path:'/air/flights', query: this.search})
         },
         // 交换到达出发地
         handleReverse(){
@@ -160,7 +159,7 @@ export default {
           // 绑定数据的修改
            this.startcity=this.search.departCity
            this.endcity=this.search.destCity
-           console.log(this.search);
+           
            
         }
     }

@@ -60,13 +60,10 @@ export default {
     }
   },
  async mounted(){
-    console.log(1111);
      let specialdata=await this.$axios({
         url:'/airs/sale'
       })
       this.sales=specialdata.data.data
-      console.log(this.sales)
-
   },
   components:{
   searchtab
