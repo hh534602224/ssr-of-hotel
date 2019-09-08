@@ -5,7 +5,8 @@
             <!-- 顶部过滤列表 -->
             <div class="flights-content">
                 <!-- 过滤条件 -->
-                <div>    
+                <div>   
+                    <filters :hh="searchdata"  @setdisposedata="disposedata"/>
                 </div>
                 <!-- 航班头部布局 -->
                 <div>
@@ -41,13 +42,22 @@
 <script>
 import flights from '../../components/air/flightsListHead'
 import flightsList from '../../components/air/flightsList'
+import filters from '../../components/air/flightsFilters'
 import moment from "moment";
 
 export default {
     data(){
         return {
             // 总的数据
-            searchdata:{},
+            searchdata:{
+                flights:[1,2],
+                info:{},
+                options:{
+                    airport:[],
+                    company:[],
+                    flightTimes:[]
+                }
+            },
             // 实际渲染的数据
             actualdata:[],
             // 当前页数
@@ -61,7 +71,9 @@ export default {
     },
     components:{
         flights,
-        flightsList
+        flightsList,
+        filters,
+
     },
     methods:{
          handleSizeChange(val) {
@@ -75,9 +87,13 @@ export default {
       },
       changeairdata(){
         //  实际渲染的页数
-        console.log((this.currentPage-1)*this.pagenum+"----"+this.pagenum*this.currentPage)
         this.actualdata=this.searchdata.flights.slice((this.currentPage-1)*this.pagenum,this.pagenum*this.currentPage)
-        
+
+      },
+    //   筛选组件发过来的数据
+      disposedata(data){
+          this.airtotal=data.length
+          this.actualdata=data
       }
     },
    async mounted(){
@@ -85,7 +101,7 @@ export default {
             url:'/airs',
             params:this.$route.query
           });
-         this.searchdata=airlist.data
+         this.searchdata={ ...airlist.data} 
          this.airtotal=airlist.data.total
          this.changeairdata()   
     }
