@@ -4,25 +4,26 @@
             <!-- 显示的机票信息 -->
             <el-row type="flex" align="middle" class="flight-info" >
                 <el-col :span="6">
-                    <span>{{airdata.airline_name}} </span> {{airdata.flight_no}}
+                    <span>{{data.airline_name}} </span> {{data.flight_no}}
                 </el-col>
                 <el-col :span="12">
                     <el-row type="flex" justify="space-between" class="flight-info-center">
                         <el-col :span="8" class="flight-airport">
-                            <strong>{{airdata.dep_time}}</strong>
-                            <span>{{airdata.org_airport_name+airdata.org_airport_quay}}</span>
+                            
+                            <strong>{{data.dep_time}}</strong>
+                            <span>{{data.org_airport_name+data.org_airport_quay}}</span>
                         </el-col>
                         <el-col :span="8" class="flight-time">
-                            <span>2时20分</span>
+                            <span>{{differtime}}</span>
                         </el-col>
                         <el-col :span="8" class="flight-airport">
-                            <strong>{{airdata.arr_time}}</strong>
-                            <span>{{airdata.dst_airport_name+airdata.dst_airport_quay}}</span>
+                            <strong>{{data.arr_time}}</strong>
+                            <span>{{data.dst_airport_name+data.dst_airport_quay}}</span>
                         </el-col>
                     </el-row>
                 </el-col>
                 <el-col :span="6" class="flight-info-right">
-                    ￥<span class="sell-price">{{airdata.base_price}}</span>起
+                    ￥<span class="sell-price">{{data.base_price}}</span>起
                 </el-col>
             </el-row>
         </div>
@@ -32,7 +33,7 @@
                 <el-col :span="4">低价推荐</el-col>
                 <el-col :span="20">
                     <el-row type="flex" justify="space-between" align="middle" class="flight-sell"
-                     v-for="(itemt,index) in airdata.seat_infos" :key="index">
+                     v-for="(itemt,index) in data.seat_infos" :key="index">
                         <el-col :span="16" class="flight-sell-left">
                             <span>{{itemt.group_name}}</span> | {{itemt.supplierName}}
                         </el-col>
@@ -61,26 +62,35 @@ export default {
             type: Object,
             // 默认是空数组
             default: {}
+            
         }
  },
  data(){
      return{
-         airdata:{},
-         show:false
+         show:false,
+         differtime:0
         
      }
 
  },
 
-    mounted(){
-         this.airdata=this.data
+    computer(){
+            const dep = this.data.dep_time.split(":");
+            const arr = this.data.arr_time.split(":");
+            const depVal = dep[0] * 60 + +dep[1];
+            const arrVal = arr[0] * 60 + +arr[1];
+            // 到达时间相减得到分钟
+            let dis = arrVal - depVal;
+            // 如果是第二天凌晨时间段，需要加24小时
+            if(dis < 0){
+                dis = arrVal + 24 * 60 - depVal;
+            }
+            // 得到相差时间
+           this.differtime=Math.floor(dis / 60)+'时'+dis % 60+'分'
 
-         console.log(11111,this.airdata);
          
+    },
 
-        
-
-    }
 }
 </script>
 

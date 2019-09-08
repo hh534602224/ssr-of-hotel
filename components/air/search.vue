@@ -87,6 +87,7 @@ export default {
     methods: {
         // 获取建议城市列表
        async getcitylist(qs,cb,data){
+         console.log(this.advisecity);
          // 建议城市列表
            this.advisecity=[]
             if(data===''){
@@ -96,7 +97,7 @@ export default {
                 url:'/airs/city',
                 params:{name:data}
             })
-            console.log(citydata);
+            console.log(qs);
             // 添加一个value属性进去返回的数据，并赋值给建议城市
             citydata.data.data.map((item,index)=>{
               this.advisecity.push(
@@ -104,6 +105,8 @@ export default {
                 ) 
               });
                     cb(this.advisecity)
+                    console.log(this.advisecity);
+                    
            }
         },
         // 设置出发城市默认项

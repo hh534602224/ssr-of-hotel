@@ -16,11 +16,20 @@
                 <!-- 航班信息 -->
                 <div>
                     <flightsList
-                    v-for="(itemt,index) in searchdata.flights" :key="index"
+                    v-for="(itemt,index) in actualdata" :key="index"
                      :data="itemt"/>
                 </div>
-            </div>
-
+                <!-- 分页功能 -->
+      <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[5, 10, 15, 20]"
+      :page-size="pagenum"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="airtotal">
+    </el-pagination>
+            </div> 
             <!-- 侧边栏 -->
             <div class="aside">
                 <!-- 侧边栏组件 -->
@@ -37,7 +46,16 @@ import moment from "moment";
 export default {
     data(){
         return {
-            searchdata:{}
+            // 总的数据
+            searchdata:{},
+            // 实际渲染的数据
+            actualdata:[],
+            // 当前页数
+            currentPage: 1,
+            // 总页数
+            airtotal:0,
+            // 每页显示的数目
+            pagenum:5,
 
         }
     },
@@ -46,15 +64,30 @@ export default {
         flightsList
     },
     methods:{
-
+         handleSizeChange(val) {
+        this.pagenum=val
+        this.changeairdata()
+      },
+      handleCurrentChange(val) {
+        this.currentPage=val
+        this.changeairdata()
+        
+      },
+      changeairdata(){
+        //  实际渲染的页数
+        console.log((this.currentPage-1)*this.pagenum+"----"+this.pagenum*this.currentPage)
+        this.actualdata=this.searchdata.flights.slice((this.currentPage-1)*this.pagenum,this.pagenum*this.currentPage)
+        
+      }
     },
    async mounted(){
         let airlist =await this.$axios({
             url:'/airs',
             params:this.$route.query
-          })
+          });
          this.searchdata=airlist.data
-           
+         this.airtotal=airlist.data.total
+         this.changeairdata()   
     }
 }
 </script>
