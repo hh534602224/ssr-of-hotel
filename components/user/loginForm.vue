@@ -72,12 +72,12 @@ export default {
                 }).then((res)=>{
                     console.log(this);
                     this.$message.success('登陆成功')
-                    // this.$router.push({path:'/'})
-                    window.localStorage.setItem('nickname',res.data)
-                    console.log(res);
+                    this.$store.commit('loginkeep',res.data)
+                    this.$router.push({path:'/'}) 
+                   
                 }).catch((err)=>{
                     console.log(err);
-                    //  this.$message.error('用户名或者密码无效');
+                     this.$message.error('用户名或者密码无效');
                 })
             }else{
                  this.$message.error('请输入正确的信息');

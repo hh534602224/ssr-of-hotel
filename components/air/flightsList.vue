@@ -67,14 +67,15 @@ export default {
  },
  data(){
      return{
-         show:false,
-         differtime:0
+         show:false
+
         
      }
 
  },
 
-    computer(){
+    computed:{
+differtime:function () {
             const dep = this.data.dep_time.split(":");
             const arr = this.data.arr_time.split(":");
             const depVal = dep[0] * 60 + +dep[1];
@@ -86,9 +87,8 @@ export default {
                 dis = arrVal + 24 * 60 - depVal;
             }
             // 得到相差时间
-           this.differtime=Math.floor(dis / 60)+'时'+dis % 60+'分'
-
-         
+            return `${ Math.floor(dis / 60)}时${dis % 60}分`
+}      
     },
 
 }

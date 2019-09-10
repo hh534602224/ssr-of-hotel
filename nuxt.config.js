@@ -1,4 +1,4 @@
-
+// import store from '../store/store'
 export default {
   mode: 'universal',
   /*
@@ -30,6 +30,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/localStorage.js', ssr: false },
     '@/plugins/element-ui',
     'assets/main.css',
     '@/plugins/axios'

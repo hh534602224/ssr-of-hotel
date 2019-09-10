@@ -11,15 +11,15 @@
       <nuxt-link to="/air">国内机票</nuxt-link>
 </el-row>
 <div class="login">
-    <nuxt-link to="/user" v-show="!islogin">登录</nuxt-link>
-    <el-dropdown v-show="islogin" class="user" >
-     <img src="../static/avatar.jpg" alt="" class="userimg">
+    <nuxt-link to="/user" v-show="!$store.state.logintoken">登录</nuxt-link>
+    <el-dropdown v-show="$store.state.logintoken" class="user" >
   <span class="el-dropdown-link" >
-    {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+      <img src="../static/avatar.jpg" alt="" class="userimg">
+    {{$store.state.nickname}}<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
-  <el-dropdown-menu slot="dropdown">
+  <el-dropdown-menu slot="dropdown" >
     <el-dropdown-item>个人中心</el-dropdown-item>
-    <el-dropdown-item>退出</el-dropdown-item>
+    <el-dropdown-item @click.native="selectdata">退出</el-dropdown-item>
   </el-dropdown-menu>
 </el-dropdown>
     </div>
@@ -30,10 +30,15 @@
 export default {
     data(){
         return{
-            username:'哈哈哈啊哈',
-            islogin:0,
+            logintoken: this.$store.state.logintoken,
         }
-    }
+    },
+    methods:{
+        selectdata(){
+            console.log(1111);
+            this.$store.commit('deletetoken')
+        }
+    },
 }
 </script>
 <style lang="less" scoped>

@@ -66,14 +66,14 @@ export default {
     }
   },
   mounted(){
-      console.log(this.axios);
+
     // 轮播图
     this.$axios({
       url:'/scenics/banners'
     }).then((hh)=>{
       this.lunbo=hh.data.data
       this.serverdata=this.$axios.defaults.baseURL
-      console.log(this.serverdata);
+
       
 
     })
@@ -87,7 +87,6 @@ export default {
     tabclick(index){
      this.tabdata=index
      if (index===2){
-       console.dir(this);
       this.$router.push({ path: '/air' })
      }
     },

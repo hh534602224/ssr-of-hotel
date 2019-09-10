@@ -115,20 +115,17 @@ export default {
 
             // 起飞时间
             }if (this.filtratelist.dep_time){
-
                 let arrtime=this.filtratelist.dep_time.split(',')
                 console.log(arrtime);
                 this.filtratedata=this.filtratedata.filter((age)=>{
                     let startime=age.dep_time.split(':')
               return +startime[0]>=+arrtime[0]&&+startime[0]<+arrtime[1]
           })
-
             // 航空公司
             }if (this.filtratelist.airline_name){
                 this.filtratedata=this.filtratedata.filter((age)=>{
               return age.airline_name==this.filtratelist.airline_name
           })
-
             // 机型大小
             }if (this.filtratelist.plane_size){
                 this.filtratedata=this.filtratedata.filter((age)=>{
